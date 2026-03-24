@@ -171,8 +171,8 @@ int main(void) {
                 else {
                     DrawTexture((p.color == PIECE_RED) ? pieceRed : pieceBlack, px, py, WHITE);
                     const char* n = (p.color == PIECE_RED) ? RED_NAMES[p.role] : BLACK_NAMES[p.role];
-                    Vector2 v = MeasureTextEx(font, n, 40, 1);
-                    DrawTextEx(font, n, (Vector2) { px + pieceRed.width / 2 - v.x / 2, py + pieceRed.height / 2 - v.y / 2 }, 40, 1, (p.color == PIECE_RED) ? MAROON : BLACK);
+                    Vector2 v = MeasureTextEx(font, n, 50, 1);
+                    DrawTextEx(font, n, (Vector2) { px + pieceRed.width / 2 - v.x / 2, py + pieceRed.height / 2 - v.y / 2 }, 50, 1, (p.color == PIECE_RED) ? MAROON : BLACK);
                 }
             }
         }
