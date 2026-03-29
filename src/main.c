@@ -101,6 +101,27 @@ void CheckWinCondition() {
         else if (!blackGeneralAlive) gameState = STATE_RED_WIN;
     }
 }
+void compflip(){
+    int candidates [32][2];
+    int count = 0;
+
+    for (int i = 0; i<4; i++){
+        for(int j = 0; j<8;j++){
+            if(!boardGrid[i][j].isEmpty && !boardGrid[i][j].isFlipped){
+                candidates[count][0] = i;
+                candidates[count][1] = j;
+                count++;
+            }
+        }
+    }
+    if (count == 0)return;
+
+    int choose = rand()%count;
+    int i = candidates[choose][0];
+    int j = candidates[choose][1];
+
+    boardGrid[i][j].isFlipped = true;
+}
 
 int main(void) {
     const int screenWidth = 800;
@@ -134,6 +155,7 @@ int main(void) {
                             target->isFlipped = true;
                             if (currentTurn == -1) currentTurn = (target->color == PIECE_RED) ? 1 : 0;
                             else currentTurn = 1 - currentTurn;
+                            compflip();
                         }
                         else if (!target->isEmpty && target->isFlipped && (int)target->color == currentTurn) {
                             selectedRow = row; selectedCol = col;
@@ -185,7 +207,7 @@ int main(void) {
             const char* w = (gameState == STATE_RED_WIN) ? "紅方獲勝！" : "黑方獲勝！";
             Vector2 ws = MeasureTextEx(font, w, 40, 1);
             DrawTextEx(font, w, (Vector2) { screenWidth / 2 - ws.x / 2, screenHeight / 2 - 20 }, 40, 1, YELLOW);
-            
+
             const char* restartMsg = "按下 R 鍵重新開始";
             Vector2 textSize = MeasureTextEx(font, restartMsg, 20, 1);
             Vector2 pos = {
